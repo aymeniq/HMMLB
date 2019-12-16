@@ -1,0 +1,84 @@
+import httplib2
+import time
+import linecache
+
+class RyuUtil:
+    url = ''
+
+
+    def __init__(self, host, port):
+        self.url = 'http://' + host + ':' + str(port)
+    def install_flow(self, udp,path_load):
+        http = httplib2.Http()
+        headers    = {'Accept': 'application/json'}
+	udp_number = str(udp)
+	path       = str(path_load)
+		
+	if(path == 'S1'):
+		first_switch  = '7'
+		second_switch = '5'
+		third_switch  = '1'
+		forth_switch  = '9'
+		fifth_switch  = '11'
+		port_1        = '2'
+		port_2	      = '1'
+		port_3	      = '2'
+		port_4	      = '4'
+		port_5	      = '3'
+
+	if(path == 'S2'):
+		first_switch  = '7'
+		second_switch = '5'
+		third_switch  = '2'
+		forth_switch  = '9'
+		fifth_switch  = '11'
+		port_1        = '2'
+		port_2	      = '2'
+		port_3	      = '4'
+		port_4	      = '4'
+		port_5	      = '3'
+	if(path == 'S3'):
+		first_switch  = '7'
+		second_switch = '6'
+		third_switch  = '3'
+		forth_switch  = '10'
+		fifth_switch  = '11'
+		port_1        = '1'
+		port_2	      = '1'
+		port_3	      = '1'
+		port_4	      = '3'
+		port_5	      = '3'
+	if(path == 'S4'):
+		first_switch  = '7'
+		second_switch = '6'
+		third_switch  = '4'
+		forth_switch  = '10'
+		fifth_switch  = '11'
+		port_1        = '1'
+		port_2	      = '2'
+		port_3	      = '2'
+		port_4	      = '3'
+		port_5	      = '3'	
+	
+
+
+        switch_1 ='{"dpid": '+first_switch+',"cookie": 100,"table_id": 0,"priority":100,"flags": 1,"match":{"dl_type":2048,"nw_src":"10.0.0.1","nw_dst":"10.0.0.3","nw_proto":17,"udp_dst":5001,"udp_src":'+udp_number+'},"actions":[{ "type": "OUTPUT","port": '+port_1+'}]}'
+
+	
+        switch_2 ='{"dpid": '+second_switch+',"cookie": 100,"table_id": 0,"priority":100,"flags": 1,"match":{"dl_type":2048,"nw_src":"10.0.0.1","nw_dst":"10.0.0.3","nw_proto":17,"udp_dst":5001,"udp_src":'+udp_number+'},"actions":[{ "type": "OUTPUT","port": '+port_2+'}]}'
+
+        switch_3 ='{"dpid": '+third_switch+',"cookie": 100,"table_id": 0,"priority":100,"flags": 1,"match":{"dl_type":2048,"nw_src":"10.0.0.1","nw_dst":"10.0.0.3","nw_proto":17,"udp_dst":5001,"udp_src":'+udp_number+'},"actions":[{ "type": "OUTPUT","port": '+port_3+'}]}'
+
+        switch_4 ='{"dpid": '+forth_switch+',"cookie": 100,"table_id": 0,"priority":100,"flags": 1,"match":{"dl_type":2048,"nw_src":"10.0.0.1","nw_dst":"10.0.0.3","nw_proto":17,"udp_dst":5001,"udp_src":'+udp_number+'},"actions":[{ "type": "OUTPUT","port": '+port_4+'}]}'
+
+        switch_5 ='{"dpid": '+fifth_switch+',"cookie": 100,"table_id": 0,"priority":100,"flags": 1,"match":{"dl_type":2048,"nw_src":"10.0.0.1","nw_dst":"10.0.0.3","nw_proto":17,"udp_dst":5001,"udp_src":'+udp_number+'},"actions":[{ "type": "OUTPUT","port": '+port_5+'}]}'
+
+	response, content = http.request(uri='http://192.168.93.137:8080/stats/flowentry/add', body=switch_1, method='POST',headers=headers)
+        response, content = http.request(uri='http://192.168.93.137:8080/stats/flowentry/add', body=switch_1, method='POST',headers=headers)
+        response, content = http.request(uri='http://192.168.93.137:8080/stats/flowentry/add', body=switch_2, method='POST',headers=headers)
+        response, content = http.request(uri='http://192.168.93.137:8080/stats/flowentry/add', body=switch_3, method='POST',headers=headers)
+        response, content = http.request(uri='http://192.168.93.137:8080/stats/flowentry/add', body=switch_4, method='POST',headers=headers)
+        response, content = http.request(uri='http://192.168.93.137:8080/stats/flowentry/add', body=switch_5, method='POST',headers=headers)
+	
+#ryu = RyuUtil('192.168.93.137', '8080')
+#ryu.install_flow('11111','S4')

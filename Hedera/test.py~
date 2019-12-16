@@ -1,0 +1,19 @@
+
+route = 1
+p1 = 1
+p10 = 1
+p4 = 1
+p6 = 1
+f4=open('/home/ryu/myapp/train_data.txt','a')
+f4.write(str(route))
+f4.write(str(p1))
+f4.write('\n')
+
+f4.close
+
+f4=open('/home/ryu/myapp/train_data.txt','a')
+f4.write(str(route))
+f4.write(str(p1))
+f4.write('\n')
+
+f4.close
